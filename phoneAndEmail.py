@@ -16,8 +16,33 @@ phoneRegex = re.compile(
     re.VERBOSE,
 )
 
-#TODO: create email regex.
+# create email regex.
+emailRegex = re.comile(
+    r"""(
+[a-zA-z0-9._%+-]+           #username
+@                           # @ symbol
+[a-zA-z0-9.-]+              #domain name
+(\.[a-zA-z]{2,4})           # dot-something
+)""",
+    re.VERBOSE,
+)
 
-#TODO: find matches in clipboard text.
+# find matches in clipboard text.
+text = str(pyperclip.paste())
 
-#TODO: copy results to clibpard
+matches = []
+for groups in phoneRegex.findall(text):
+    phoneNum = "-".join([groups[1], groups[3], groups[5]])
+    if groups[8] != "":
+        phoneNum += " x" + groups[8]
+    matches.append(phoneNum)
+for groups in emailRegex.findall(text):
+    matches.append(groups[0])
+
+# copy results to clibpard
+if len(matches) > 0:
+    pyperclip.copy("\n".join(matches))
+    print("Copied to clipboard: ")
+    print("\n".join(matches))
+else:
+    print("No phone numbers or email addresses found.")
