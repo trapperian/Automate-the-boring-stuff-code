@@ -18,5 +18,10 @@ while True:
         cheeseType = None
     condiments = pyip.inputMenu(["mayo", "mustard", "1000 Island Dressing & Sauerkraut", "tomato", "onion", "lettuce"], "Alright, what other toppin's would you like?\n")
 
-
+    breadCost = breadPrices.get(breadType)
+    proteinCost = proteinPrices.get(protein)
+    cheeseCost = cheesePrices.get(cheeseType)
+    condimentCost = condimentPrices.get(condiments)
+    totalCost = (breadCost + proteinCost + cheeseCost + condimentCost) * numSandwiches
+    print("Well, that bring's your price today to " + str(totalCost) + " dollars.  Have a nice day!")
 
